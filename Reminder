@@ -1,0 +1,32 @@
+
+# Avec Agent Java
+java -javaagent:/Users/pejman/AppDynamics/4357/ver4.3.5.7/javaagent.jar -Dappdynamics.controller.hostName=osxpejman.local -Dappdynamics.controller.port=8099 -Dappdynamics.agent.applicationName=SpringBootXML -Dappdynamics.agent.tierName=Tier -Dappdynamics.agent.nodeName=Node -Dappdynamics.agent.accountName=customer1 -Dappdynamics.agent.accountAccessKey=2f2db5e6-f2c7-4efd-b20d-149c6efa966c -jar SpringBootMarshalling-0.0.1.jar --server.port=8082
+
+# Avec Agent Java et debugger
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -javaagent:/Users/pejman/AppDynamics/4357/ver4.3.5.7/javaagent.jar -Dappdynamics.controller.hostName=osxpejman.local -Dappdynamics.controller.port=8099 -Dappdynamics.agent.applicationName=SpringBootXML -Dappdynamics.agent.tierName=Tier -Dappdynamics.agent.nodeName=Node -Dappdynamics.agent.accountName=customer1 -Dappdynamics.agent.accountAccessKey=2f2db5e6-f2c7-4efd-b20d-149c6efa966c -jar SpringBootMarshalling-0.0.1.jar --server.port=8082
+
+
+# Avec debugger seul
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -jar SpringBootMarshalling-0.0.1.jar --server.port=8082
+
+
+curl -X POST  http://localhost:8082/customer  -H 'cache-control: no-cache' -H 'content-type: text/xml' -H 'postman-token: 89ba71f1-6aa9-1fdc-276e-b59d6a3d2847' -d '<customer><age>30</age><firstname>Peter</firstname><lastname>Smith</lastname></customer>'
+
+
+#Ex de session de debug (sans agent AppD)
+1. Placer un break point dans le code
+
+2. Aller dans Edit configurations >> Cliquer sur '+'
+    >> Choisir "Remote"
+    >> Copier la command line argument: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+    >> Passer suspend à 'y'
+    >> Donner un nom à la configuration (Ex TestDebug) et sauvegarder
+
+3. Lancer le programme à débuger en ligne de commande depuis une fenêtre terminal quelconque:
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -jar SpringBootMarshalling-0.0.1.jar --server.port=8082
+
+4. Lancer TestDebug depuis IntelliJ
+
+5. Appeler le programme. Ici l'application attend des données envoyées en XML
+curl -X POST  http://localhost:8082/customer  -H 'cache-control: no-cache' -H 'content-type: text/xml' -H 'postman-token: 89ba71f1-6aa9-1fdc-276e-b59d6a3d2847' -d '<customer><age>30</age><firstname>Peter</firstname><lastname>Smith</lastname></customer>'
+ou l'appeler depuis postman ou un browser
