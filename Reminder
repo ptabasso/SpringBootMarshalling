@@ -15,7 +15,6 @@ curl -X POST  http://localhost:8082/customer  -H 'cache-control: no-cache' -H 'c
 #Ex de session de debug (sans agent AppD)
 1. Placer un break point dans le code
 
-
 2. Aller dans Edit configurations >> Cliquer sur '+'
     >> Choisir "Remote"
     >> Copier la command line argument: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
