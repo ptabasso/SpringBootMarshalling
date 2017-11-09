@@ -12,7 +12,6 @@ java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -jar Spr
 
 curl -X POST  http://localhost:8082/customer  -H 'cache-control: no-cache' -H 'content-type: text/xml' -H 'postman-token: 89ba71f1-6aa9-1fdc-276e-b59d6a3d2847' -d '<customer><age>30</age><firstname>Peter</firstname><lastname>Smith</lastname></customer>'
 
-
 #Ex de session de debug (sans agent AppD)
 1. Placer un break point dans le code
 
